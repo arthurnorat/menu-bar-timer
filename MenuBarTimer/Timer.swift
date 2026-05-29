@@ -20,9 +20,12 @@ class TimerController: ObservableObject {
 
     private var dispatchTimer: DispatchSourceTimer?
     private(set) var completedWorkIntervals: Int = 0
+    private let soundPlayer = SoundPlayer()
+    private let notificationManager = NotificationManager()
 
     init() {
         timeRemaining = workIntervalLength * 60
+        notificationManager.requestAuthorization()
     }
 
     var displayString: String {
@@ -63,6 +66,8 @@ class TimerController: ObservableObject {
     }
 
     func transition(to newState: TimerState) {
+        let previousState = state
+
         if isPaused {
             dispatchTimer?.resume()
             isPaused = false
@@ -77,10 +82,19 @@ class TimerController: ObservableObject {
             timeRemaining = workIntervalLength * 60
         case .work:
             timeRemaining = workIntervalLength * 60
+            if previousState != .idle {
+                soundPlayer.play()
+                notificationManager.notify(title: "Back to work", body: "Focus time started.")
+            }
             startCountdown()
         case .rest:
             let isLongRest = completedWorkIntervals % workIntervalsInSet == 0
             timeRemaining = (isLongRest ? longRestIntervalLength : shortRestIntervalLength) * 60
+            soundPlayer.play()
+            notificationManager.notify(
+                title: isLongRest ? "Long break" : "Short break",
+                body: isLongRest ? "You earned a longer rest." : "Take a quick break."
+            )
             startCountdown()
         }
     }
