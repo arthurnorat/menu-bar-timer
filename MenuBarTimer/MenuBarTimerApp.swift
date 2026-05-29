@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppKit
+import Combine
 
 @main
 struct MenuBarTimerApp: App {
@@ -19,6 +20,8 @@ struct MenuBarTimerApp: App {
 
 class StatusBarController: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
+    let timerController = TimerController()
+    private var cancellables = Set<AnyCancellable>()
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -28,10 +31,25 @@ class StatusBarController: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         guard let button = statusItem.button else { return }
-        button.title = "25:00"
+        button.title = timerController.idleDisplayString
         button.action = #selector(handleClick(_:))
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         button.target = self
+
+        timerController.$timeRemaining
+            .sink { [weak self] _ in self?.updateButton() }
+            .store(in: &cancellables)
+
+        timerController.$state
+            .sink { [weak self] _ in self?.updateButton() }
+            .store(in: &cancellables)
+    }
+
+    private func updateButton() {
+        guard let button = statusItem.button else { return }
+        button.title = timerController.state == .idle
+            ? timerController.idleDisplayString
+            : timerController.displayString
     }
 
     @objc private func handleClick(_ sender: NSStatusBarButton) {
@@ -39,7 +57,12 @@ class StatusBarController: NSObject, NSApplicationDelegate {
         if event.type == .rightMouseUp {
             print("right click — panel will open here")
         } else {
-            print("left click — timer will start/pause here")
+            switch timerController.state {
+            case .idle:
+                timerController.start()
+            case .work, .rest:
+                timerController.isPaused ? timerController.resume() : timerController.pause()
+            }
         }
     }
 }
