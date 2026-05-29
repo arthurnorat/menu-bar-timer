@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E03B4B892FCA2E09001F8155 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = E03B4B882FCA2E09001F8155 /* KeyboardShortcuts */; };
+		E03B4B8C2FCA2E26001F8155 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E03B4B8B2FCA2E26001F8155 /* LaunchAtLogin */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E0C076252FC8DE210039FA2D /* MenuBarTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBarTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E03B4B8C2FCA2E26001F8155 /* LaunchAtLogin in Frameworks */,
+				E03B4B892FCA2E09001F8155 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = MenuBarTimer;
 			packageProductDependencies = (
+				E03B4B882FCA2E09001F8155 /* KeyboardShortcuts */,
+				E03B4B8B2FCA2E26001F8155 /* LaunchAtLogin */,
 			);
 			productName = MenuBarTimer;
 			productReference = E0C076252FC8DE210039FA2D /* MenuBarTimer.app */;
@@ -94,6 +103,10 @@
 			);
 			mainGroup = E0C0761C2FC8DE210039FA2D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E03B4B872FCA2E09001F8155 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				E03B4B8A2FCA2E26001F8155 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E0C076262FC8DE210039FA2D /* Products */;
 			projectDirPath = "";
@@ -331,6 +344,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E03B4B872FCA2E09001F8155 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+		E03B4B8A2FCA2E26001F8155 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E03B4B882FCA2E09001F8155 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E03B4B872FCA2E09001F8155 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		E03B4B8B2FCA2E26001F8155 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E03B4B8A2FCA2E26001F8155 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E0C0761D2FC8DE210039FA2D /* Project object */;
 }
