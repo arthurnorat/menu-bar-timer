@@ -8,6 +8,7 @@ enum TimerState {
 class TimerController: ObservableObject {
     @Published var state: TimerState = .idle
     @Published var timeRemaining: Int = 0
+    @Published var totalDuration: Int = 0
     @Published var isPaused: Bool = false
 
     @AppStorage("workIntervalLength") var workIntervalLength: Int = 25
@@ -25,6 +26,7 @@ class TimerController: ObservableObject {
 
     init() {
         timeRemaining = workIntervalLength * 60
+        totalDuration = workIntervalLength * 60
         notificationManager.requestAuthorization()
     }
 
@@ -80,8 +82,10 @@ class TimerController: ObservableObject {
         switch newState {
         case .idle:
             timeRemaining = workIntervalLength * 60
+            totalDuration = workIntervalLength * 60
         case .work:
             timeRemaining = workIntervalLength * 60
+            totalDuration = workIntervalLength * 60
             if previousState != .idle {
                 soundPlayer.play()
                 notificationManager.notify(title: "Back to work", body: "Focus time started.")
@@ -89,7 +93,9 @@ class TimerController: ObservableObject {
             startCountdown()
         case .rest:
             let isLongRest = completedWorkIntervals % workIntervalsInSet == 0
-            timeRemaining = (isLongRest ? longRestIntervalLength : shortRestIntervalLength) * 60
+            let duration = (isLongRest ? longRestIntervalLength : shortRestIntervalLength) * 60
+            timeRemaining = duration
+            totalDuration = duration
             soundPlayer.play()
             notificationManager.notify(
                 title: isLongRest ? "Long break" : "Short break",
