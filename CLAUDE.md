@@ -84,9 +84,29 @@ All user preferences use `@AppStorage` (backed by `UserDefaults`). Keys: `workIn
 **Why this order:** each step gets an isolated commit, making the history readable and each change reversible independently.
 
 ### Current state
-Steps 1–5 not yet done. SPM dependencies have not been added. Do not assume they are available until confirmed by the user.
+
+All setup steps completed. App is fully functional on `main`. Remote: `https://github.com/arthurnorat/menu-bar-timer.git`
+
+**Implemented files:**
+- `MenuBarTimerApp.swift` — `StatusBarController`, `NSPanel`, event handling
+- `Timer.swift` — `TimerController`, `TimerState` state machine
+- `View.swift` — `TimerPanelView` settings panel
+- `Player.swift` — `SoundPlayer` (NSSound "Glass")
+- `Notifications.swift` — `NotificationManager` (UNUserNotificationCenter)
 
 ## Project identity
 
 - **Bundle Identifier**: `com.arthurnorat.MenuBarTimer`
-- **Git remote**: to be defined after repo creation
+- **Git remote**: `https://github.com/arthurnorat/menu-bar-timer.git`
+
+## Next: panel redesign (branch `feature/panel-redesign`)
+
+Timer-as-protagonist redesign planned for `View.swift`. Work on branch `feature/panel-redesign`.
+
+**Visual goal:** large centered countdown (52pt monospaced) inside a circular progress ring; color accent changes with state (orange = work, green = rest, gray = idle); settings section below, compact.
+
+**Files to change:**
+1. `Timer.swift` — add `@Published var totalDuration: Int` updated in `transition(to:)`, used to compute ring progress
+2. `View.swift` — rewrite `body`: `ZStack` with `Circle` trim arc + inner `VStack` (time + state label), buttons row, compact settings below
+
+**Progress formula:** `Double(timer.timeRemaining) / Double(timer.totalDuration)`
