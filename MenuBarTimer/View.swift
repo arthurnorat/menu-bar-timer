@@ -18,19 +18,39 @@ struct TimerPanelView: View {
     @AppStorage("dingVolume") private var dingVolume: Double = 0.5
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text(stateLabel)
-                    .font(.headline)
-                Spacer()
-                Text(timer.state == .idle ? timer.idleDisplayString : timer.displayString)
-                    .font(.system(.title2, design: .monospaced).weight(.semibold))
+        VStack(spacing: 0) {
+            ZStack {
+                Circle()
+                    .stroke(accentColor.opacity(0.15), lineWidth: 8)
+                Circle()
+                    .trim(from: 0, to: progress)
+                    .stroke(accentColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(.linear(duration: 1), value: progress)
+                VStack(spacing: 4) {
+                    Text(timer.state == .idle ? timer.idleDisplayString : timer.displayString)
+                        .font(.system(size: 52, weight: .semibold, design: .monospaced))
+                    Text(stateLabel)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
-            .padding()
+            .padding(24)
+
+            HStack(spacing: 8) {
+                if timer.state != .idle {
+                    Button("Stop") { timer.stop() }
+                        .buttonStyle(.bordered)
+                }
+                Button(mainButtonLabel, action: handleMainButton)
+                    .buttonStyle(.borderedProminent)
+                    .tint(accentColor)
+            }
+            .padding(.bottom, 16)
 
             Divider()
 
-            VStack(spacing: 6) {
+            VStack(spacing: 4) {
                 row("Work") {
                     Stepper("\(workIntervalLength) min", value: $workIntervalLength, in: 1...60)
                 }
@@ -40,23 +60,25 @@ struct TimerPanelView: View {
                 row("Long break") {
                     Stepper("\(longRestIntervalLength) min", value: $longRestIntervalLength, in: 1...60)
                 }
-                row("Intervals per set") {
+                row("Intervals/set") {
                     Stepper("\(workIntervalsInSet)", value: $workIntervalsInSet, in: 1...10)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 8)
 
             Divider()
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 6) {
                 Toggle("Stop after break", isOn: $stopAfterBreak)
                 Toggle("Show timer in menu bar", isOn: $showTimerInMenuBar)
                 LaunchAtLogin.Toggle("Launch at login")
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 8)
             .toggleStyle(.switch)
 
-            VStack(spacing: 8) {
+            VStack(spacing: 6) {
                 row("Volume") {
                     Slider(value: $dingVolume, in: 0...1)
                         .frame(maxWidth: 120)
@@ -66,24 +88,11 @@ struct TimerPanelView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.bottom, 8)
-
-            Divider()
-
-            HStack(spacing: 8) {
-                Spacer()
-                if timer.state != .idle {
-                    Button("Stop") { timer.stop() }
-                        .buttonStyle(.bordered)
-                }
-                Button(mainButtonLabel, action: handleMainButton)
-                    .buttonStyle(.borderedProminent)
-                Spacer()
-            }
-            .padding()
+            .padding(.bottom, 12)
         }
         .frame(width: 280)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: .black.opacity(0.25), radius: 10, y: 5)
         .padding(8)
     }
@@ -94,6 +103,19 @@ struct TimerPanelView: View {
             Spacer()
             content()
         }
+    }
+
+    private var accentColor: Color {
+        switch timer.state {
+        case .idle: .gray
+        case .work: .orange
+        case .rest: .green
+        }
+    }
+
+    private var progress: Double {
+        guard timer.totalDuration > 0 else { return 1.0 }
+        return Double(timer.timeRemaining) / Double(timer.totalDuration)
     }
 
     private var stateLabel: String {

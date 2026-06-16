@@ -63,6 +63,8 @@ class StatusBarController: NSObject, NSApplicationDelegate {
     private func buildPanel() {
         let rootView = TimerPanelView().environmentObject(timerController)
         let hosting = NSHostingView(rootView: rootView)
+        hosting.wantsLayer = true
+        hosting.layer?.backgroundColor = NSColor.clear.cgColor
 
         let p = NSPanel(
             contentRect: .zero,
@@ -72,6 +74,7 @@ class StatusBarController: NSObject, NSApplicationDelegate {
         )
         p.isOpaque = false
         p.backgroundColor = .clear
+        p.hasShadow = false
         p.level = .popUpMenu
         p.isMovableByWindowBackground = true
         p.contentView = hosting
