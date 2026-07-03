@@ -8,7 +8,6 @@
 import SwiftUI
 import AppKit
 import Combine
-import KeyboardShortcuts
 
 @main
 struct MenuBarTimerApp: App {
@@ -54,10 +53,6 @@ class StatusBarController: NSObject, NSApplicationDelegate {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in self?.updateButton() }
             .store(in: &cancellables)
-
-        KeyboardShortcuts.onKeyUp(for: .startStop) { [weak self] in
-            self?.handleLeftClick()
-        }
     }
 
     private func buildPanel() {

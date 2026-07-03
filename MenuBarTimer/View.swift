@@ -1,10 +1,5 @@
 import SwiftUI
-import KeyboardShortcuts
 import LaunchAtLogin
-
-extension KeyboardShortcuts.Name {
-    static let startStop = Self("startStop")
-}
 
 struct TimerPanelView: View {
     @EnvironmentObject var timer: TimerController
@@ -82,9 +77,6 @@ struct TimerPanelView: View {
                 row("Volume") {
                     Slider(value: $dingVolume, in: 0...1)
                         .frame(maxWidth: 120)
-                }
-                row("Shortcut") {
-                    KeyboardShortcuts.Recorder("", name: .startStop)
                 }
             }
             .padding(.horizontal)
