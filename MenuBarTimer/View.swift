@@ -4,7 +4,7 @@ import LaunchAtLogin
 struct TimerPanelView: View {
     @EnvironmentObject var timer: TimerController
 
-    @AppStorage("workIntervalLength") private var workIntervalLength: Int = 25
+    @AppStorage("workIntervalLength") private var workIntervalLength: Int = 50
     @AppStorage("shortRestIntervalLength") private var shortRestIntervalLength: Int = 5
     @AppStorage("longRestIntervalLength") private var longRestIntervalLength: Int = 15
     @AppStorage("workIntervalsInSet") private var workIntervalsInSet: Int = 4
@@ -47,7 +47,7 @@ struct TimerPanelView: View {
 
             VStack(spacing: 4) {
                 row("Work") {
-                    Stepper("\(workIntervalLength) min", value: $workIntervalLength, in: 1...60)
+                    Stepper("\(workIntervalLength) min", value: $workIntervalLength, in: 1...120)
                 }
                 row("Short break") {
                     Stepper("\(shortRestIntervalLength) min", value: $shortRestIntervalLength, in: 1...30)

@@ -11,7 +11,7 @@ class TimerController: ObservableObject {
     @Published var totalDuration: Int = 0
     @Published var isPaused: Bool = false
 
-    @AppStorage("workIntervalLength") var workIntervalLength: Int = 25
+    @AppStorage("workIntervalLength") var workIntervalLength: Int = 50
     @AppStorage("shortRestIntervalLength") var shortRestIntervalLength: Int = 5
     @AppStorage("longRestIntervalLength") var longRestIntervalLength: Int = 15
     @AppStorage("workIntervalsInSet") var workIntervalsInSet: Int = 4
