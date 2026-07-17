@@ -5,6 +5,7 @@
 
 # Xcode
 xcuserdata/
+xcshareddata/
 *.xcuserstate
 *.xcscmblueprint
 DerivedData/
