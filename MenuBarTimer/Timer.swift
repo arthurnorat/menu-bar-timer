@@ -88,7 +88,7 @@ class TimerController: ObservableObject {
             timeRemaining = workIntervalLength * 60
             totalDuration = workIntervalLength * 60
             if previousState != .idle {
-                soundPlayer.play()
+				soundPlayer.play(volume: dingVolume)
                 notificationManager.notify(title: "Back to work", body: "Focus time started.")
             }
             startCountdown()
@@ -97,7 +97,7 @@ class TimerController: ObservableObject {
             let duration = (isLongRest ? longRestIntervalLength : shortRestIntervalLength) * 60
             timeRemaining = duration
             totalDuration = duration
-            soundPlayer.play()
+			soundPlayer.play(volume: dingVolume)
             notificationManager.notify(
                 title: isLongRest ? "Long break" : "Short break",
                 body: isLongRest ? "You earned a longer rest." : "Take a quick break."
