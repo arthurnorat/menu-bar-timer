@@ -64,6 +64,7 @@ class TimerController: ObservableObject {
         dispatchTimer = nil
         completedWorkIntervals = 0
         timeRemaining = workIntervalLength * 60
+        totalDuration = workIntervalLength * 60
         state = .idle
     }
 
