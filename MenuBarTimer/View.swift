@@ -81,7 +81,14 @@ struct TimerPanelView: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 12)
+			
+			Button("Quit") {
+				NSApplication.shared.terminate(nil)
+			}
+			.buttonStyle(.bordered)
+			.padding(.bottom, 12)
         }
+		
         .frame(width: 280)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
         .clipShape(RoundedRectangle(cornerRadius: 12))
