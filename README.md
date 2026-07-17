@@ -1,14 +1,18 @@
-# MenuBarTimer
+🇺🇸 [English](#english) · 🇧🇷 [Português](#português)
 
 ---
 
-## English
+<a name="english"></a>
+
+# ⏱️ MenuBarTimer
 
 A minimalist Pomodoro timer that lives entirely in the macOS menu bar — no Dock icon, no extra windows.
 
-### How it works
+## About
 
-The timer follows the Pomodoro technique: focused work intervals separated by short breaks, with a longer break after every N cycles.
+MenuBarTimer follows the Pomodoro technique: focused work intervals separated by short breaks, with a longer break after every N cycles. Everything is controlled from the menu bar — no window ever takes over your screen.
+
+## Features
 
 **Menu bar button**
 - Shows a live countdown while running, or the full work duration when idle
@@ -20,41 +24,39 @@ The timer follows the Pomodoro technique: focused work intervals separated by sh
 - Short and long rest durations
 - Number of work intervals before a long rest
 - Option to stop automatically after the break
-- Din volume
+- Ding volume
 - Show/hide the countdown in the menu bar
-- Global keyboard shortcut to start/stop
 - Launch at login toggle
+- Quit button
 
 **Cycle flow**
 ```
 work → short rest → work → short rest → … → long rest → idle
 ```
 
-### Requirements
+## Requirements
 
 - macOS 13 Ventura or later
-- Xcode 15 or later (to build from source)
 
-### Dependencies
+## Dependencies
 
 | Package | Purpose |
 |---|---|
-| [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) | Global hotkey for start/stop |
 | [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin-Modern) | Login item management |
-
-### Build
-
-Open `MenuBarTimer.xcodeproj` in Xcode and press `⌘ R`.
 
 ---
 
-## Português
+<a name="português"></a>
+
+# ⏱️ MenuBarTimer
 
 Um timer Pomodoro minimalista que vive inteiramente na barra de menus do macOS — sem ícone no Dock, sem janelas extras.
 
-### Como funciona
+## Sobre
 
-O timer segue a técnica Pomodoro: intervalos de foco separados por pausas curtas, com uma pausa longa após cada N ciclos completos.
+O MenuBarTimer segue a técnica Pomodoro: intervalos de foco separados por pausas curtas, com uma pausa longa após cada N ciclos completos. Tudo é controlado pela barra de menus — nenhuma janela toma conta da sua tela.
+
+## Funcionalidades
 
 **Botão na barra de menus**
 - Exibe a contagem regressiva em tempo real durante a sessão, ou a duração total do intervalo de trabalho quando ocioso
@@ -68,26 +70,20 @@ O timer segue a técnica Pomodoro: intervalos de foco separados por pausas curta
 - Opção de parar automaticamente após a pausa
 - Volume do sinal sonoro
 - Exibir/ocultar a contagem na barra de menus
-- Atalho de teclado global para iniciar/parar
 - Opção para iniciar junto com o sistema
+- Botão para encerrar o app
 
 **Fluxo de ciclos**
 ```
 trabalho → pausa curta → trabalho → pausa curta → … → pausa longa → ocioso
 ```
 
-### Requisitos
+## Requisitos
 
 - macOS 13 Ventura ou superior
-- Xcode 15 ou superior (para compilar a partir do código-fonte)
 
-### Dependências
+## Dependências
 
 | Pacote | Finalidade |
 |---|---|
-| [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) | Atalho global para iniciar/parar |
 | [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin-Modern) | Gerenciamento do item de login |
-
-### Compilar
-
-Abra `MenuBarTimer.xcodeproj` no Xcode e pressione `⌘ R`.
